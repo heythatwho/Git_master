@@ -26,11 +26,11 @@ def summarize():
 
     aut = article.authors or 'NA'
     author.delete("1.0",'end')
-    author.insert("1.0",str(f"by {article.authors}"))
+    author.insert("1.0",str(f"{aut}"))
 
     pub = article.publish_date or "NA"
     publication.delete("1.0","end")
-    publication.insert("1.0", str(f"by {article.publish_date}"))
+    publication.insert("1.0", str(f"{pub}"))
 
     summary.delete("1.0","end")
     summary.insert("1.0", article.summary)
