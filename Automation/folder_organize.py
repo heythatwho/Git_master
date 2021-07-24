@@ -23,17 +23,22 @@ class MyHandler(FileSystemEventHandler):
 		for filename in os.listdir(folder_to_track):
 			i=1
 			if filename !="issacmiao":
-				new_name=filename
-				file_exists = os.path.isfile(folder_destination + "/" + new_name)
-				while file_exists:
-					i +=1
-					new_name = filename + str(i)
+				try:
+					new_name=filename
+					# split_name = filename.split(".")
 					file_exists = os.path.isfile(folder_destination + "/" + new_name)
+					while file_exists:
+						i +=1
+						new_name = os.path.splitext(folder_to_track + "/" + new_name)[0] + str(i) + os.path.splitext(folder_to_track + "/" + new_name)[1] # filename + str(i)
+						new_name = new_name.split("/")[4]
+						file_exists = os.path.isfile(folder_destination + "/" + new_name)
 
 
-				src = folder_to_track + "/" + filename
-				new_name = folder_destination + "/" + new_name
-				os.rename(src, new_name)
+					src = folder_to_track + "/" + filename
+					new_name = folder_destination + "/" + new_name
+					os.rename(src, new_name)
+				except Exception:
+					print(filename)
 
 
 folder_to_track = "/Users/issacmiao/Desktop"
