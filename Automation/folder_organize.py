@@ -18,11 +18,11 @@ import json
 import shutil
 
 class MyHandler(FileSystemEventHandler):
-	i = 1
+	# i = 1
 	def on_modified(self,event):
 		for filename in os.listdir(folder_to_track):
 			i=1
-			if filename !="issacmiao":
+			if filename !="issac":
 				new_name=filename
 				file_exists = os.path.isfile(folder_destination + "/" + new_name)
 				while file_exists:
@@ -41,6 +41,7 @@ folder_destination="/Users/issacmiao/Desktop/issacmiao"
 event_handler=MyHandler()
 observer = Observer()
 observer.schedule(event_handler,folder_to_track,recursive=True)
+observer.star()
 
 try:
 	while True:
