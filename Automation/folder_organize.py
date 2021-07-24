@@ -41,7 +41,7 @@ folder_destination="/Users/issacmiao/Desktop/issacmiao"
 event_handler=MyHandler()
 observer = Observer()
 observer.schedule(event_handler,folder_to_track,recursive=True)
-observer.star()
+observer.start()
 
 try:
 	while True:
