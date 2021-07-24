@@ -22,7 +22,7 @@ class MyHandler(FileSystemEventHandler):
 	def on_modified(self,event):
 		for filename in os.listdir(folder_to_track):
 			i=1
-			if filename !="issac":
+			if filename !="issacmiao":
 				new_name=filename
 				file_exists = os.path.isfile(folder_destination + "/" + new_name)
 				while file_exists:
