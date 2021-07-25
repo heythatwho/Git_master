@@ -41,11 +41,12 @@ class MyHandler(FileSystemEventHandler):
 
 
 
-					
-					new_name = folder_destination + "/" + new_name
+
+					new_name = folder_destination[extension] + "/" + new_name
 					os.rename(src, new_name)
 				except Exception:
 					print(filename)
+
 extensions_folders = {
         # No name
         'noname':  '/Users/issacmiao/Desktop/issacmiao/other/uncategorized',
@@ -65,6 +66,8 @@ extensions_folders = {
         '.txt':    '/Users/issacmiao/Desktop/issacmiao/text/text_files',
         '.doc':    '/Users/issacmiao/Desktop/issacmiao/text/microsoft/word',
         '.docx':   '/Users/issacmiao/Desktop/issacmiao/text/microsoft/word',
+        '.ppt':   '/Users/issacmiao/Desktop/issacmiao/text/microsoft/powerpoint',
+        '.pptx':   '/Users/issacmiao/Desktop/issacmiao/text/microsoft/powerpoint',
         '.odt ':   '/Users/issacmiao/Desktop/issacmiao/text/text_files',
         '.pdf':    '/Users/issacmiao/Desktop/issacmiao/text/pdf',
         '.rtf':    '/Users/issacmiao/Desktop/issacmiao/text/text_files',
@@ -162,8 +165,8 @@ extensions_folders = {
         '.key':    '/Users/issacmiao/Desktop/issacmiao/text/presentations',
         '.odp':    '/Users/issacmiao/Desktop/issacmiao/text/presentations',
         '.pps':    '/Users/issacmiao/Desktop/issacmiao/text/presentations',
-        '.ppt':    '/Users/issacmiao/Desktop/issacmiao/text/presentations',
-        '.pptx':   '/Users/issacmiao/Desktop/issacmiao/text/presentations',
+        # '.ppt':    '/Users/issacmiao/Desktop/issacmiao/text/presentations',
+        # '.pptx':   '/Users/issacmiao/Desktop/issacmiao/text/presentations',
         # programming
         '.c':      '/Users/issacmiao/Desktop/issacmiao/programming/c&c++',
         '.class':  '/Users/issacmiao/Desktop/issacmiao/programming/java',
