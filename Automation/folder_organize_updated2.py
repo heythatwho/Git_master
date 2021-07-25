@@ -12,6 +12,7 @@
 
 from watchdog.observers import Observer
 import time
+import datetime 
 from watchdog.events import FileSystemEventHandler
 import os
 import json
@@ -29,7 +30,7 @@ class MyHandler(FileSystemEventHandler):
                     new_name = filename
                     extension = "noname"
                     try:
-                        extension = str(os.path.splitext(folder_to_track + "/" + filename)[1])
+                        extension = str(os.path.splitext(folder_to_track + "/" + filename)[1]) #check the end
                         path = extensions_folders[extension]
                     except Exception:
                         extension = "noname"
@@ -50,12 +51,11 @@ class MyHandler(FileSystemEventHandler):
                     month_exists = False
                     for folder_name in os.listdir(extensions_folders[extension]):
                         if folder_name == str(year):
-                            folder_destination_path = folder_destination_path + "/" + str(year)
+                            folder_destination_path = extensions_folders[extension] + "/" +folder_name
                             year_exists = True
-                            for folder_month in os.listdir(folder_destination_path):
-                                if str(month) == folder_month:
-                                    folder_destination_path = extensions_folders[extension] + "/" + str(year) + "/" + str(month)
-                                    month_exists = True
+                            if str(month) == folder_month:
+                                folder_destination_path = extensions_folders[extension] + "/" + str(year) + "/" + str(month)
+                                month_exists = True
                     if not year_exists:
                         os.mkdir(extensions_folders[extension] + "/" + str(year))
                         folder_destination_path = extensions_folders[extension] + "/" + str(year)
@@ -156,6 +156,8 @@ extensions_folders = {
     '.iso':    '/Users/issacmiao/Desktop/issacmiao/other/disc',
     '.toast':  '/Users/issacmiao/Desktop/issacmiao/other/disc',
     '.vcd':    '/Users/issacmiao/Desktop/issacmiao/other/disc',
+     # calendars
+    ".ics":    "/Users/issacmiao/Desktop/issacmiao/calendars",   
     # data
     '.csv':    '/Users/issacmiao/Desktop/issacmiao/programming/database',
     '.dat':    '/Users/issacmiao/Desktop/issacmiao/programming/database',
@@ -181,6 +183,8 @@ extensions_folders = {
     '.fon':    '/Users/issacmiao/Desktop/issacmiao/other/fonts',
     '.otf':    '/Users/issacmiao/Desktop/issacmiao/other/fonts',
     '.ttf':    '/Users/issacmiao/Desktop/issacmiao/other/fonts',
+    # calendars
+    ".ics":    "/Users/issacmiao/Desktop/issacmiao/calendars",
     # presentations
     '.key':    '/Users/issacmiao/Desktop/issacmiao/text/presentations',
     '.odp':    '/Users/issacmiao/Desktop/issacmiao/text/presentations',
