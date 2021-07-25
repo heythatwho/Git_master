@@ -136,6 +136,8 @@ extensions_folders = {
     ".gadget": "/Users/issacmiao/Desktop/issacmiao/other/executables",
     ".jar":    "/Users/issacmiao/Desktop/issacmiao/other/executables",
     ".wsf":    "/Users/issacmiao/Desktop/issacmiao/other/executables",
+    # calendars
+    ".ics":    "/Users/issacmiao/Desktop/issacmiao/calendars",
     # fonts
     ".fnt":    "/Users/issacmiao/Desktop/issacmiao/other/fonts",
     ".fon":    "/Users/issacmiao/Desktop/issacmiao/other/fonts",
