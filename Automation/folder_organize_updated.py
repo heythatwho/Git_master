@@ -3,10 +3,10 @@
 # move files
 # run in the background
 # system for the file organization
-	# --folders for each file type category (eg.images, video,audio, text.etc)
-	# --within folders we need to organize by date
-	# create subfolders with date as name something like:
-	# 2019, 8.september, day? or file?
+    # --folders for each file type category (eg.images, video,audio, text.etc)
+    # --within folders we need to organize by date
+    # create subfolders with date as name something like:
+    # 2019, 8.september, day? or file?
 
 # need to find all file types to check what file has been added
 
@@ -18,54 +18,53 @@ import json
 import shutil
 
 class MyHandler(FileSystemEventHandler):
-	# i = 1
-	def on_modified(self,event):
-		for filename in os.listdir(folder_to_track):
-			i=1
-			if filename !="issacmiao":
-
-				try:
-					# split_name = filename.split(".")
-					new_name = filename
+    # i = 1
+    def on_modified(self,event):
+        for filename in os.listdir(folder_to_track):
+            i=1
+            if filename !="issacmiao":
+                try:
+                    # split_name = filename.split(".")
+                    new_name = filename
                     extension = "noname"
                     try:
                         extension = str(os.path.splitext(folder_to_track + "/" + filename)[1])
                         path = extensions_folders[extension]
                     except Exception:
-                            extension = "noname"
-					file_exists = os.path.isfile(extensions_folders[extension] + "/" + new_name)
-					while file_exists:
-						i +=1
-						new_name = os.path.splitext(folder_to_track + "/" + new_name)[0] + str(i) + os.path.splitext(folder_to_track + "/" + new_name)[1] # filename + str(i)
-						new_name = new_name.split("/")[4]
-						file_exists = os.path.isfile(extensions_folders[extension] + "/" + new_name)
-					src = folder_to_track + "/" + filename
+                        extension = "noname"
+                    file_exists = os.path.isfile(extensions_folders[extension] + "/" + new_name)
+                    while file_exists:
+                        i +=1
+                        new_name = os.path.splitext(folder_to_track + "/" + new_name)[0] + str(i) + os.path.splitext(folder_to_track + "/" + new_name)[1] # filename + str(i)
+                        new_name = new_name.split("/")[4]
+                        file_exists = os.path.isfile(extensions_folders[extension] + "/" + new_name)
+                    src = folder_to_track + "/" + filename
 
-					year = datetime.datetime.year
-					month = datetime.datetime.month
+                    year = datetime.datetime.year
+                    month = datetime.datetime.month
 
-					folder_destination_path = extensions_folders[extension]
+                    folder_destination_path = extensions_folders[extension]
 
-					year_exists = False
-					month_exists = False
-					for folder_name in os.listdir(extensions_folders[extension]):
-						if folder_name == str(year):
-							folder_destination_path = folder_destination_path + "/" + folder_name
-							year_exists = True
-							for folder_month in os.listdir(folder_destination_path):
-								if str(month) == folder_month:
-									folder_destination_path = extensions_folders[extension] + "/" + str(year) + "/" + str(month)
-									month_exists = True
-					if not year_exists:
-						os.mkdir(extensions_folders[extension] + "/" + str(year))
-						folder_destination_path = extensions_folders[extension] + "/" + str(year)
-					if not month_exists:
-						os.mkdir(extensions_folders[extension] + "/" + str(year) + "/" + str(month))
+                    year_exists = False
+                    month_exists = False
+                    for folder_name in os.listdir(extensions_folders[extension]):
+                        if folder_name == str(year):
+                            folder_destination_path = folder_destination_path + "/" + folder_name
+                            year_exists = True
+                            for folder_month in os.listdir(folder_destination_path):
+                                if str(month) == folder_month:
+                                    folder_destination_path = extensions_folders[extension] + "/" + str(year) + "/" + str(month)
+                                    month_exists = True
+                    if not year_exists:
+                        os.mkdir(extensions_folders[extension] + "/" + str(year))
+                        folder_destination_path = extensions_folders[extension] + "/" + str(year)
+                    if not month_exists:
+                        os.mkdir(extensions_folders[extension] + "/" + str(year) + "/" + str(month))
 
-					new_name = folder_destination[extension] + "/" + new_name
-					os.rename(src, new_name)
-				except Exception:
-					print(filename)
+                    new_name = folder_destination[extension] + "/" + new_name
+                    os.rename(src, new_name)
+                except Exception:
+                    print(filename)
 
 extensions_folders = {
         # No name
@@ -225,10 +224,10 @@ observer.schedule(event_handler,folder_to_track,recursive=True)
 observer.start()
 
 try:
-	while True:
-		time.sleep(10)
+    while True:
+        time.sleep(10)
 except KeyboardInterrupt:
-	observer.stop()
+    observer.stop()
 observer.join()
 
 
