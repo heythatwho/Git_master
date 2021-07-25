@@ -37,10 +37,26 @@ class MyHandler(FileSystemEventHandler):
 
 					src = folder_to_track + "/" + filename
 
+					year = datetime.datetime.year
+					month = datetime.datetime.month
 
+					folder_destination_path = extensions_folders[extension]
 
-
-
+					year_exists = false
+					month_exists = false
+					for folder_name in os.listdir(extensions_folders[extension]):
+						if folder_name == str(year):
+							folder_destination_path = folder_destination_path + "/" + folder_name
+							year_exists = True
+							for folder_month in os.listdir(folder_destination_path):
+								if str(month) == folder_month:
+									folder_destination_path = extensions_folders[extension] + "/" + str(year) + "/" str(month)
+									month_exists = True
+					if not year_exists:
+						os.mkdir(extensions_folders[extension] + "/" + str(year))
+						folder_destination_path = extensions_folders[extension] + "/" + str(year)
+					if not month_exists:
+						os.mkdir(extensions_folders[extension] + "/" + str(year) + "/" str(month))
 
 					new_name = folder_destination[extension] + "/" + new_name
 					os.rename(src, new_name)
