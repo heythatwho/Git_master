@@ -28,7 +28,6 @@ class MyHandler(FileSystemEventHandler):
 					# split_name = filename.split(".")
 					new_name = filename
                     extension = "noname"
-
                     try:
                         extension = str(os.path.splitext(folder_to_track + "/" + filename)[1])
                         path = extensions_folders[extension]
