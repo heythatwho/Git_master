@@ -107,8 +107,6 @@ group by 1,2) sub1
 where rank <=10
 order by 1, 4) sub2
 )
-
-
 select 
 concat(c.first_name,' ',c.last_name) as fullname,
 date_trunc('month', payment_date) as pay_month,
