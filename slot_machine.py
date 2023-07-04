@@ -15,6 +15,29 @@ symbol_count = {
 	"D": 8
 }
 
+symbol_value = {
+	"A": 5,
+	"B": 4,
+	"C": 3,
+	"D": 2
+}
+
+def check_winnings(columns, lines, bet, values):
+    winnings = 0
+    winning_lines = []
+    for line in range(lines):
+        symbol = columns[0][line]
+
+        for column in columns:
+            symbol_to_check = column[line]
+            if symbol != symbol_to_check:
+                break
+        else:
+            winnings += values[symbol] * bet
+            winning_lines.append(line + 1)
+
+    return winnings, winning_lines
+
 def get_slot_machine_spin(rows, cols, symbols):
 	#randomly select values here
 	all_symbols =[]
@@ -30,6 +53,7 @@ def get_slot_machine_spin(rows, cols, symbols):
 		for _ in range(rows):
 			value = random.choice(all_symbols)
 			current_symbols.remove(value)
+			column.append(value)
 
 		columns.append(column) 
 	return columns
@@ -89,22 +113,45 @@ def get_bet():
 			print("please enter a number.")
 	return amount
 
+def play_again():
+    while True:
+        choice = input("Do you want to play again? (y/n): ")
+        if choice.lower() == "y":
+            return True
+        elif choice.lower() == "n":
+            return False
+        else:
+            print("Invalid choice. Please enter 'y' or 'n'.")
+
 #Call the function again once it is done, we can ask for input again see if they want to play again
 def main():
-	balance = deposit()
-	lines =get_number_of_lines()
-	while True:#check the bet amount within their total balance
-		bet =get_bet()
-		total_bet =bet * lines
+	while True:
+		balance = deposit()
+		lines =get_number_of_lines()
+		while True:#check the bet amount within their total balance
+			bet =get_bet()
+			total_bet =bet * lines
 
-		if total_bet> balance:
-			print(f"you dont have enough to bet that amount, your current balance is ${balance}")
-		else:
+			if total_bet> balance:
+				print(f"you dont have enough to bet that amount, your current balance is ${balance}")
+			else:
+				break
+		print(f"you are betting  ${bet} on {lines} lines. Total bet is equal to: ${total_bet}")
+
+		#print(balance, lines, bet)
+		slots = get_slot_machine_spin(ROWS,COLS, symbol_count)
+		print_slot_machine(slots)
+		winnings, winning_lines =check_winnings(slots, lines, bet, symbol_value)
+		print(f"You won ${winnings}.")
+		print(f"You won on lines:", *winning_lines)
+
+		balance += winnings - total_bet
+		print(f"Your new balance is ${balance}.")
+
+		if balance <= 0:
+			print("You ran out of balance. Game over.")
 			break
-	print(f"you are betting  ${bet} on {lines} lines. Total bet is equal to: ${total_bet}")
 
-	#print(balance, lines, bet)
-	slots = get_slot_machine_spin(ROWS,COLS, symbol_count)
-	print_slot_machine(slots)
-
+		if not play_again():
+			break
 main()
